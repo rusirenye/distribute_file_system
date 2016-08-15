@@ -19,9 +19,9 @@ var user string
 var db string
 
 func init() {
-	addr = "10.210.44.203"
+	addr = "127.0.0.1"
 	port = "3306"
-	pwd = "123456"
+	pwd = "abc123"
 	user = "root"
 	db = "dfs"
 }
