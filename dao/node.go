@@ -1,10 +1,8 @@
 package dao
 
-import(
-	"database/sql"
-)
+////	"dsatabase/sql"
 
-func GetNodeList(host string) {
-	o := dao.GetOrmer()
-	sql := `select * from node where host = ` + host
+func GetNodeList() {
+	//	o := dao.GetOrmer()
+	//	sql := `select * from node where host = ` + host
 }

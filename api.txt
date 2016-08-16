@@ -1,0 +1,4 @@
+request:  http://127.0.0.1:8080/host
+describe:  get host list
+parameters: none
+return: "{\"errno\":\"0\",\"errmsg\":\"\",\"data\":[{\"id\":1,\"ip\":\"10.1.1.255\",\"brandwidth\":1e+07,\"disk\":1.0737418e+11,\"cpu\":2,\"memory\":4.2949673e+09},{\"id\":2,\"ip\":\"10.1.1.255\",\"brandwidth\":1e+07,\"disk\":1.0737418e+11,\"cpu\":2,\"memory\":4.2949673e+09}]}"

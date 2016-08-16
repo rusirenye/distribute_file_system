@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"database/sql"
-	"errors"
+	//	"database/sql"
+	//  "errors"
 
 	"distribute_file_system/log"
 	"distribute_file_system/models"
@@ -11,16 +11,16 @@ import (
 func GetHostList() ([]models.Host, error) {
 	o := GetOrmer()
 	sql := `select * from host`
-	var hostList []models.host
+	var hostList []models.Host
 	n, err := o.Raw(sql).QueryRows(&hostList)
-	log.Debugf("select host lost: num:" + n)
+	log.Debugf("select host lost: num:" + string(n))
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
-	if n=={
-		return nil,nil
+	if n == 0 {
+		return nil, nil
 	}
-	return &hostList, nil
+	return hostList, nil
 }
 
 func GetHost(query models.Host) (*models.Host, error) {
