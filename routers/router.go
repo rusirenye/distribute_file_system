@@ -8,8 +8,14 @@ import (
 
 func init() {
 	beego.Router("/", &controllers.MainController{})
+	initHostRouter()
+	initNodeRouter()
 }
 
 func initHostRouter() {
 	beego.Router("/host", &controllers.HostController{})
+}
+
+func initNodeRouter() {
+	beego.Router("/node", &controllers.NodeController{})
 }
