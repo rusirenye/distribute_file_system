@@ -10,6 +10,8 @@ func init() {
 	beego.Router("/", &controllers.MainController{})
 	initHostRouter()
 	initNodeRouter()
+	initFileRouter()
+	initBlockRouter()
 }
 
 func initHostRouter() {
@@ -18,4 +20,13 @@ func initHostRouter() {
 
 func initNodeRouter() {
 	beego.Router("/node", &controllers.NodeController{})
+}
+
+func initFileRouter() {
+	beego.Router("/file", &controllers.FileController{})
+	//beego.Router("/upload", &controllers.FileController{}, "POST:uploadFile")
+}
+
+func initBlockRouter() {
+	beego.Router("/block", &controllers.BlockController{})
 }

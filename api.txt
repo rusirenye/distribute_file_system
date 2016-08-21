@@ -1,4 +1,25 @@
-request:  http://127.0.0.1:8080/host
-describe:  get host list
-parameters: none
-return: "{\"errno\":\"0\",\"errmsg\":\"\",\"data\":[{\"id\":1,\"ip\":\"10.1.1.255\",\"brandwidth\":1e+07,\"disk\":1.0737418e+11,\"cpu\":2,\"memory\":4.2949673e+09},{\"id\":2,\"ip\":\"10.1.1.255\",\"brandwidth\":1e+07,\"disk\":1.0737418e+11,\"cpu\":2,\"memory\":4.2949673e+09}]}"
+API-1:
+	request:  http://127.0.0.1:8080/host
+	describe:  get host list
+	parameters: none
+	return: "{\"errno\":\"0\",\"errmsg\":\"\",\"data\":[{\"id\":1,\"ip\":\"10.1.1.255\",\"brandwidth\":1e+07,\"disk\":1.0737418e+11,\"cpu\":2,\"memory\":4.2949673e+09},{\"id\":2,\"ip\":\"10.1.1.255\",\"brandwidth\":1e+07,\"disk\":1.0737418e+11,\"cpu\":2,\"memory\":4.2949673e+09}]}"
+API-2:
+    request:  http://127.0.0.1:8080/node?host_ip=10.1.1.255
+	describe: get node list on the host by host_ip 
+	parameters:  host_ip=10.1.1.255
+	return:	"{\"errno\":\"0\",\"errmsg\":\"\",\"data\":[{\"id\":3,\"ip\":\"10.1.1.252\",\"brandwidth\":2,\"brandwidth_used\":0,\"disk\":33,\"disk_used\":0.5555,\"cpu\":3000,\"cpu_used\":0.555,\"memory\":300,\"memory_used\":0.55,\"host_ip\":\"10.1.1.255\",\"health\":\"1\"}]}"
+API-3:
+	request: http://127.0.0.1:8080/file
+	describe: get all file list
+	parameters: none
+    return:  "{\"errno\":\"0\",\"errmsg\":\"\",\"data\":[{\"id\":1,\"file_id\":\"11\",\"name\":\"11\",\"size\":11,\"create_time\":\"11\",\"update_time\":\"11\",\"upload_time\":\"11\",\"health\":\"1\"}]}"
+API-4:
+	request: http://127.0.0.1:8080/block?file_id=11
+	describe: get file blocks list of choosed file by file_id
+	parameters: file_id=11
+	return: "{\"errno\":\"0\",\"errmsg\":\"\",\"data\":[{\"id\":1,\"file_id\":\"11\",\"block_num\":1,\"block_size\":1,\"node_ip\":\"1\",\"health\":\"1\"}]}"
+API-5: 
+	upload file api don't  complete
+	
+note: all id field don't need to be present. 
+	
