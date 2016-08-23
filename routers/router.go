@@ -7,26 +7,32 @@ import (
 )
 
 func init() {
-	beego.Router("/", &controllers.MainController{})
+	initIndexRouter()
 	initHostRouter()
 	initNodeRouter()
 	initFileRouter()
 	initBlockRouter()
 }
+func initStaticRouter() {
+	beego.SetStaticPath("static", "static")
+}
+func initIndexRouter() {
+	beego.Router("/dfs/", &controllers.MainController{})
+}
 
 func initHostRouter() {
-	beego.Router("/host", &controllers.HostController{})
+	beego.Router("/dfs/host", &controllers.HostController{})
 }
 
 func initNodeRouter() {
-	beego.Router("/node", &controllers.NodeController{})
+	beego.Router("/dfs/node", &controllers.NodeController{})
 }
 
 func initFileRouter() {
-	beego.Router("/file", &controllers.FileController{})
-	//beego.Router("/upload", &controllers.FileController{}, "POST:uploadFile")
+	beego.Router("/dfs/file", &controllers.FileController{})
+	beego.Router("/dfs/uploadfile", &controllers.FileController{}, "post:Uploadfile")
 }
 
 func initBlockRouter() {
-	beego.Router("/block", &controllers.BlockController{})
+	beego.Router("/dfs/block", &controllers.BlockController{})
 }
