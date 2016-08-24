@@ -127,7 +127,6 @@ func (fc *FileController) Uploadfile() {
 		ioutil.WriteFile(path.Join(tempFolder, strconv.Itoa(i)), fileData[(i*1024*1024*2):((i+1)*1024*1024*2)], 777)
 	}
 	ioutil.WriteFile(path.Join(tempFolder, strconv.Itoa(i)), fileData[(i*1024*1024*2):dataLen], 777)
-
 	fc.Data["json"] = "{file:1}"
 	fc.ServeJSON()
 }
