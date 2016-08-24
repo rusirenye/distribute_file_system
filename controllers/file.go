@@ -69,7 +69,7 @@ func (fc *FileController) Get() {
 
 func (fc *FileController) Uploadfile() {
 	var err string = "0"
-	var err_info string = ""
+	var err_info string = "upload success"
 
 	log.Infof("uploading file")
 	file, head, err1 := fc.Ctx.Request.FormFile("file")
@@ -109,19 +109,25 @@ func (fc *FileController) Uploadfile() {
 	}
 	time_now := time.Now()
 	upload_time := fmt.Sprintf("%d-%s-%02d %02d:%02d:%02d", time_now.Year(), time_now.Month().String(), time_now.Day(), time_now.Hour(), time_now.Minute(), time_now.Second())
-	log.Infof(upload_time + " " + fileName + "  " + tempFolder)
 	fileData, _ := ioutil.ReadAll(file)
-
 	dataLen := len(fileData)
+	// save file info to db
+	fileInfo := File.models{FileId: fileId, Name: fileName, Size: dataLen, CreateTime: time_now, UpdateTime: time_now, UploadTime: time_now, Health: "1"}
+	dao.AddFile(fileInfo)
+	log.Infof(upload_time + " " + fileName + "  " + tempFolder)
+
 	blockNum := 0
 	if isTrue := (dataLen%(1024*1024*2) == 0); isTrue {
 		blockNum = dataLen / (1024 * 1024 * 2)
 	} else {
 		blockNum = dataLen/(1024*1024*2) + 1
 	}
-	for i := 0; i < blockNum; i += 1 {
+	i := 0
+	for i = 0; i < blockNum-1; i += 1 {
 		ioutil.WriteFile(path.Join(tempFolder, strconv.Itoa(i)), fileData[(i*1024*1024*2):((i+1)*1024*1024*2)], 777)
 	}
+	ioutil.WriteFile(path.Join(tempFolder, strconv.Itoa(i)), fileData[(i*1024*1024*2):dataLen], 777)
+
 	fc.Data["json"] = "{file:1}"
 	fc.ServeJSON()
 }

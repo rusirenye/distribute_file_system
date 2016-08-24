@@ -52,3 +52,27 @@ func GetFileList(file models.File) ([]models.File, error) {
 	}
 	return fileList, err
 }
+func AddFile(file models.File) error {
+	o := GetOrmer()
+
+	sql := ` insert into file (file_id, name, size, create_time, update_time, upload_time, health) 
+		   values (?, ?, ?, ?, ?, ?, ?)`
+	params := make([]interface{}, 1)
+	params = append(params, file.FileId)
+	params = append(params, file.Name)
+	params = append(params, file.Size)
+	params = append(params, file.CreateTime)
+	params = append(params, file.UpdateTime)
+	params = append(params, file.UploadTime)
+	params = append(params, file.Health)
+	p, err := o.Raw(sql).Prepare()
+	if err != nil {
+		return err
+	}
+	defer p.Close()
+	r, err := p.Exec(params)
+	if er != nil {
+		return err
+	}
+	return nii
+}
