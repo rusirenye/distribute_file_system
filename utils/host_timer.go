@@ -10,7 +10,7 @@ const (
 )
 
 func Init_host_timer() {
-	log.Debugf("init host timer function")
+	log.Debugf("init ping db")
 	go func() {
 		ch := make(chan int, 1)
 		for {
@@ -19,7 +19,7 @@ func Init_host_timer() {
 			case <-ch:
 				// notification node update
 			case <-time.After(time_seconde * time.Second):
-				log.DebugF("no host operation")
+				log.Debugf("no host operation")
 			}
 		}
 	}()

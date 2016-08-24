@@ -57,12 +57,12 @@ func AddFile(file models.File) error {
 
 	sql := ` insert into file (file_id, name, size, create_time, update_time, upload_time, health) 
 		   values (?, ?, ?, ?, ?, ?, ?)`
-	params := make([]interface{}, 1)
+	params := make([]interface{}, 10)
 	params = append(params, file.FileId)
 	params = append(params, file.Name)
 	params = append(params, file.Size)
 	params = append(params, file.CreateTime)
-	params = append(params, file.UpdateTime)
+	params = append(params, file.CreateTime)
 	params = append(params, file.UploadTime)
 	params = append(params, file.Health)
 	p, err := o.Raw(sql).Prepare()
@@ -70,9 +70,17 @@ func AddFile(file models.File) error {
 		return err
 	}
 	defer p.Close()
-	r, err := p.Exec(params)
-	if er != nil {
+	log.Infof("12")
+	r, err := p.Exec(file.FileId, file.Name, file.Size, file.CreateTime, file.CreateTime, file.UploadTime, file.Health)
+
+	if err != nil {
+		err.Error()
+		log.Infof("err")
 		return err
 	}
-	return nii
+	if num, _ := r.RowsAffected(); num == 0 {
+		log.Infof(sql)
+	}
+	log.Infof("2")
+	return nil
 }

@@ -7,6 +7,7 @@ import (
 )
 
 func init() {
+	initStaticRouter()
 	initIndexRouter()
 	initHostRouter()
 	initNodeRouter()
@@ -14,7 +15,8 @@ func init() {
 	initBlockRouter()
 }
 func initStaticRouter() {
-	beego.SetStaticPath("static", "static")
+	beego.SetStaticPath("/dfs/static/", "static")
+	beego.SetStaticPath("/dfs/static/", "views")
 }
 func initIndexRouter() {
 	beego.Router("/dfs/", &controllers.MainController{})

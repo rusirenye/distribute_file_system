@@ -53,6 +53,7 @@ func InitDB() {
 		panic("Failed to connect to DB after 60 seconds")
 	}
 	err := orm.RegisterDataBase("default", "mysql", dbConnectionStr)
+	log.Infof(dbConnectionStr)
 	if err != nil {
 		panic(err)
 	}

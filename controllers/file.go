@@ -12,6 +12,7 @@ import (
 	"distribute_file_system/dao"
 	"distribute_file_system/log"
 	"distribute_file_system/models"
+	"distribute_file_system/utils"
 
 	"github.com/astaxie/beego"
 )
@@ -107,12 +108,20 @@ func (fc *FileController) Uploadfile() {
 		fc.ServeJSON()
 		return
 	}
-	time_now := time.Now()
-	upload_time := fmt.Sprintf("%d-%s-%02d %02d:%02d:%02d", time_now.Year(), time_now.Month().String(), time_now.Day(), time_now.Hour(), time_now.Minute(), time_now.Second())
+
+	upload_time := fmt.Sprintf(time.Now().Format("2006-01-02 15:04:05"))
+	// upload_time := fmt.Sprintf("%d-%s-%02d %02d:%02d:%02d", time_now.Year(), time_now.Month().String(), time_now.Day(), time_now.Hour(), time_now.Minute(), time_now.Second())
 	fileData, _ := ioutil.ReadAll(file)
 	dataLen := len(fileData)
 	// save file info to db
-	fileInfo := File.models{FileId: fileId, Name: fileName, Size: dataLen, CreateTime: time_now, UpdateTime: time_now, UploadTime: time_now, Health: "1"}
+	var fileInfo models.File // = models.File{Id: 0, FileId: fileId, Name: fileName, Size: int64(dataLen), CreateTime: time_now.String(), UpdateTime: time_now.String(), UploadTime: time_now.String(), Health: "1"}
+	fileInfo.FileId = fileId
+	fileInfo.Name = fileName
+	fileInfo.Size = int64(dataLen)
+	fileInfo.CreateTime = upload_time
+	fileInfo.UpdateTime = upload_time
+	fileInfo.UploadTime = upload_time
+	fileInfo.Health = "1"
 	dao.AddFile(fileInfo)
 	log.Infof(upload_time + " " + fileName + "  " + tempFolder)
 
@@ -127,6 +136,7 @@ func (fc *FileController) Uploadfile() {
 		ioutil.WriteFile(path.Join(tempFolder, strconv.Itoa(i)), fileData[(i*1024*1024*2):((i+1)*1024*1024*2)], 777)
 	}
 	ioutil.WriteFile(path.Join(tempFolder, strconv.Itoa(i)), fileData[(i*1024*1024*2):dataLen], 777)
+	utils.SaveBlockToNode(fileId, tempFolder)
 	fc.Data["json"] = "{file:1}"
 	fc.ServeJSON()
 }
