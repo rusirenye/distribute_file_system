@@ -7,9 +7,6 @@ import (
 	"time"
 	"distribute_file_system/log"
 )
-const(
-	REPLICA = 3
-)
 
 func SaveBlockToNode(fileId, dir string) bool {
 	files, err := ioutil.ReadDir(dir)
@@ -25,11 +22,11 @@ func SaveBlockToNode(fileId, dir string) bool {
 			continue
 		}
 		// choose node
-		for i:=range 1...REPLICA {
-			//nodeList,err:=dao.GetNodeCandicates(fileId,fileBlock.Name())
+		for i:= range [1..3] {
+			nodeList,err:=dao.GetNodeCandicates(fileId,fileBlock.Name())
 			sed:=time.Now().Unix() 
 			rand.Seed(sed)
-			index:=rand.Intn(len(nodeList))
+		    index :=rand.Intn(len(nodeList))
 			err:= dao.AddBlockToNode(fileId,fileBlock.Name())
 			//copy data to node 
 			node:=nodeList[index]
