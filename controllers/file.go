@@ -99,6 +99,7 @@ func (fc *FileController) Uploadfile() {
 	// create tmp directory
 	tempFolder, err0 := ioutil.TempDir("./static/files/", "")
 	if err0 != nil {
+		err = "3004"
 		err_info = "can't create directory :" + saveDir + "_tmp with mode 0777"
 		log.Fatal(err_info)
 
@@ -137,6 +138,6 @@ func (fc *FileController) Uploadfile() {
 	}
 	ioutil.WriteFile(path.Join(tempFolder, strconv.Itoa(i)), fileData[(i*1024*1024*2):dataLen], 777)
 	utils.SaveBlockToNode(fileId, tempFolder)
-	fc.Data["json"] = "{file:1}"
+	fc.Data["json"] = "{\"errno\":\"0\",\"errmsg\":\"upload file success\"}"
 	fc.ServeJSON()
 }
