@@ -15,8 +15,8 @@ func init() {
 	initBlockRouter()
 }
 func initStaticRouter() {
-	beego.SetStaticPath("/dfs/static/", "static")
-	beego.SetStaticPath("/dfs/static/", "views")
+	beego.SetStaticPath("dfs/static/", "static")
+	beego.SetStaticPath("dfs/static/", "views")
 }
 func initIndexRouter() {
 	beego.Router("/dfs/", &controllers.MainController{})
@@ -36,5 +36,5 @@ func initFileRouter() {
 }
 
 func initBlockRouter() {
-	beego.Router("/dfs/block", &controllers.BlockController{})
+	beego.Router("/dfs/block", &controllers.BlockController{}, "get:GetBlock")
 }

@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"strconv"
+	//"strconv"
 	"strings"
 
 	"distribute_file_system/dao"
@@ -19,20 +19,35 @@ type Blocks struct {
 	hostlist []models.File
 }
 type BlockRespond struct {
-	Error      string         `json:"errno"`
-	Error_info string         `json:"errmsg"`
-	Data       []models.Block `json:"data"`
+	Error      string                 `json:"errno"`
+	Error_info string                 `json:"errmsg"`
+	Data       []models.FileBlockInfo `json:"data"`
 }
 
 // Get return block
-func (bc *BlockController) Get() {
-	//email := cc.GetString("email")
+func (bc *BlockController) GetBlock() {
+	type RequestObject struct {
+		file_id string
+	}
 	var block models.Block
+
+	//block = bc.GetString("file_id")
+	//	log.Infof(parameters)
+	//	jsonByte := []byte(parameters)
+	//	var fildIdObject RequestObject
+
+	//	json.Unmarshal(jsonByte, &fildIdObject)
+	//	//email := cc.GetString("email")
+	//block.FileId = fildIdObject.file_id
 	block.FileId = bc.GetString("file_id")
-	block.BlockNum, _ = strconv.ParseInt(bc.GetString("block_num"), 10, 64)
-	block.Size, _ = strconv.ParseInt(bc.GetString("size"), 10, 64)
-	block.NodeIp = bc.GetString("node_id")
-	block.Health = bc.GetString("health")
+	if block.FileId == "" {
+		block.FileId = "1472121418"
+	}
+	log.Infof(block.FileId + "daffaafadfafasdfaf")
+	//	block.BlockNum, _ = strconv.ParseInt(bc.GetString("block_num"), 10, 64)
+	//	block.Size, _ = strconv.ParseInt(bc.GetString("size"), 10, 64)
+	//	block.NodeIp = bc.GetString("node_id")
+	//	block.Health = bc.GetString("health")
 
 	blockList, err1 := dao.GetBlockList(block)
 	var err string = "0"
