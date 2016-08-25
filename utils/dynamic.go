@@ -14,9 +14,9 @@ func getRandom() float32 {
 	rand.Seed(time.Now().Unix())
 
 	var randomPara float32
-	randomPara += float32(rand.Intn(7))
-	randomPara = randomPara + 7.0
-	randomPara = (randomPara / 10.0001)
+	randomPara += float32(rand.Intn(5))
+	randomPara = randomPara + 98
+	randomPara = (randomPara / 100)
 	return randomPara
 }
 func UpdateNodeStatus() {
