@@ -28,10 +28,10 @@ func UpdateNodeStatus() {
 				node.MemoryUsed *= getRandom()
 				node.BrandwidthUsed *= getRandom()
 				dao.UpdateNodeStatus(node)
-				time.Sleep(500 * time.Millisecond)
+				time.Sleep(2000 * time.Millisecond)
 			}
 			// update node network used percent every 100ms
-			time.Sleep(500 * time.Millisecond)
+			time.Sleep(3000 * time.Millisecond)
 		}
 	}()
 

@@ -11,6 +11,7 @@ import (
 func main() {
 
 	dao.InitDB()
+	utils.InitNodeStorageDir()
 	utils.UpdateNodeStatus()
 	beego.Run()
 }
